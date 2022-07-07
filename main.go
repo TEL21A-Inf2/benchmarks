@@ -3,9 +3,9 @@ package main
 import "github.com/tel21a-inf2/benchmarks/branchprediction"
 
 const (
-	iterations = 1000
+	iterations = 100
 )
 
 func main() {
-	branchprediction.RunBenchmark(200, 10000, iterations)
+	branchprediction.RunBenchmark(200, 30000, iterations)
 }
