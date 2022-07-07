@@ -1,6 +1,7 @@
 package branchprediction
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 
@@ -49,4 +50,24 @@ func CreateListShuffleAndSum(x, n, t int) (int, time.Duration) {
 	var sum int
 	duration := timing.Duration(func() { sum = SumGreater(list, t) })
 	return sum, duration
+}
+
+// Führt den eigentlichen Benchmark aus:
+//
+// Erzeugt eine Liste von count Vielfachen von base,
+// summiert dann deren Elemente über threshold.
+// Ausgeführt wird jeweils einmal CreateListAndSum() und CreateListShuffleAndSum().
+// Gibt die Summe sowie die Dauer auf die Konsole aus.
+func RunBenchmark(base, count, threshold int) {
+	sumSorted, durationSorted := CreateListAndSum(base, count, threshold)
+	sumShuffled, durationShuffled := CreateListShuffleAndSum(base, count, threshold)
+
+	fmt.Printf("%v Vielfache von %v, summiere die Elemente > %v:\n", count, base, threshold)
+
+	fmt.Println("  Sortierte Liste:")
+	fmt.Printf("    Ergebnis: %v, Dauer: %v\n\n", sumSorted, durationSorted)
+
+	fmt.Println("  Unsortierte Liste:")
+	fmt.Printf("    Ergebnis: %v, Dauer: %v\n\n", sumShuffled, durationShuffled)
+
 }
