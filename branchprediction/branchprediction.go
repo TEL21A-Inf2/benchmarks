@@ -1,6 +1,11 @@
 package branchprediction
 
-import "math/rand"
+import (
+	"math/rand"
+	"time"
+
+	"github.com/tel21a-inf2/benchmarks/timing"
+)
 
 // Erwartet eine Liste von Zahlen und eine Zahl t.
 // Liefert die Summe aller Elemente der Liste, die größer als t sind.
@@ -27,18 +32,21 @@ func Multiples(x, n int) []int {
 
 // Erzeugt eine Liste mit Multiples(x,n) und summiert
 // dann die Elemente auf, die größer als t sind.
-func CreateListAndSum(x, n, t int) int {
+// Liefert diese Summe und die Zeit, die das Aufsummieren gedauert hat.
+func CreateListAndSum(x, n, t int) (int, time.Duration) {
 	list := Multiples(x, n)
-	sum := SumGreater(list, t)
-	return sum
+	var sum int
+	duration := timing.Duration(func() { sum = SumGreater(list, t) })
+	return sum, duration
 }
 
 // Erzeugt eine Liste mit Multiples(x,n) und summiert
 // dann die Elemente auf, die größer als t sind.
-// Bringt die Liste vor dem Aufsummieren in eine zufällige Reihenfolge.
-func CreateListShuffleAndSum(x, n, t int) int {
+// Liefert diese Summe und die Zeit, die das Aufsummieren gedauert hat.
+func CreateListShuffleAndSum(x, n, t int) (int, time.Duration) {
 	list := Multiples(x, n)
 	rand.Shuffle(len(list), func(i, j int) { list[i], list[j] = list[j], list[i] })
-	sum := SumGreater(list, t)
-	return sum
+	var sum int
+	duration := timing.Duration(func() { sum = SumGreater(list, t) })
+	return sum, duration
 }

@@ -4,17 +4,10 @@ import "fmt"
 
 func ExampleSumGreater() {
 	l1 := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	fmt.Println(SumGreater(l1, 0))
-	fmt.Println(SumGreater(l1, 1))
-	fmt.Println(SumGreater(l1, 2))
-	fmt.Println(SumGreater(l1, 3))
-	fmt.Println(SumGreater(l1, 4))
-	fmt.Println(SumGreater(l1, 5))
-	fmt.Println(SumGreater(l1, 6))
-	fmt.Println(SumGreater(l1, 7))
-	fmt.Println(SumGreater(l1, 8))
-	fmt.Println(SumGreater(l1, 9))
-	fmt.Println(SumGreater(l1, 10))
+
+	for i := 0; i <= 10; i++ {
+		fmt.Println(SumGreater(l1, i))
+	}
 
 	// Output:
 	// 55
@@ -49,17 +42,10 @@ func ExampleMultiples() {
 }
 
 func ExampleCreateListAndSum() {
-	fmt.Println(CreateListAndSum(1, 10, 0))
-	fmt.Println(CreateListAndSum(1, 10, 1))
-	fmt.Println(CreateListAndSum(1, 10, 2))
-	fmt.Println(CreateListAndSum(1, 10, 3))
-	fmt.Println(CreateListAndSum(1, 10, 4))
-	fmt.Println(CreateListAndSum(1, 10, 5))
-	fmt.Println(CreateListAndSum(1, 10, 6))
-	fmt.Println(CreateListAndSum(1, 10, 7))
-	fmt.Println(CreateListAndSum(1, 10, 8))
-	fmt.Println(CreateListAndSum(1, 10, 9))
-	fmt.Println(CreateListAndSum(1, 10, 10))
+	for i := 0; i <= 10; i++ {
+		result, _ := CreateListAndSum(1, 10, i)
+		fmt.Println(result)
+	}
 
 	// Output:
 	// 55
@@ -76,17 +62,10 @@ func ExampleCreateListAndSum() {
 }
 
 func ExampleCreateListShuffleAndSum() {
-	fmt.Println(CreateListShuffleAndSum(1, 10, 0))
-	fmt.Println(CreateListShuffleAndSum(1, 10, 1))
-	fmt.Println(CreateListShuffleAndSum(1, 10, 2))
-	fmt.Println(CreateListShuffleAndSum(1, 10, 3))
-	fmt.Println(CreateListShuffleAndSum(1, 10, 4))
-	fmt.Println(CreateListShuffleAndSum(1, 10, 5))
-	fmt.Println(CreateListShuffleAndSum(1, 10, 6))
-	fmt.Println(CreateListShuffleAndSum(1, 10, 7))
-	fmt.Println(CreateListShuffleAndSum(1, 10, 8))
-	fmt.Println(CreateListShuffleAndSum(1, 10, 9))
-	fmt.Println(CreateListShuffleAndSum(1, 10, 10))
+	for i := 0; i <= 10; i++ {
+		result, _ := CreateListShuffleAndSum(1, 10, i)
+		fmt.Println(result)
+	}
 
 	// Output:
 	// 55
