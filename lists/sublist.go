@@ -1,6 +1,6 @@
 package lists
 
-// Erwartet eine Liste aus Zahlen list und eine Zahl lenght.
+// Erwartet eine Liste aus Zahlen list und eine Zahl length.
 // Liefert die Teilliste von list mit der Länge n, deren Elemente die höchste Summe haben.
 func GreatestSublist(list []int, length int) []int {
 	if length > len(list) {
