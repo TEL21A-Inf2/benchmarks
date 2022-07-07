@@ -1,6 +1,9 @@
 package main
 
-import "github.com/tel21a-inf2/benchmarks/branchprediction"
+import (
+	"github.com/tel21a-inf2/benchmarks/branchprediction"
+	"github.com/tel21a-inf2/benchmarks/sorting"
+)
 
 const (
 	iterations = 100
@@ -8,4 +11,5 @@ const (
 
 func main() {
 	branchprediction.RunBenchmark(200, 30000, iterations)
+	sorting.RunBenchmark(200, 30000, iterations)
 }

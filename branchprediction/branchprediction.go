@@ -48,25 +48,27 @@ func CreateListSortAndSum(max, length int) time.Duration {
 // Erwartet Anzahl und Höchstgrenze für die Elemente der Liste, sowie die Anzahl der Wiederholungen.
 // Summiert alles, was größer ist als count / 2.
 // Ausgeführt wird jeweils einmal CreateListAndSum() und CreateListSortAndSum().
-// Gibt die Summe sowie die durchschnittliche Dauer auf die Konsole aus.
+// Gibt die durchschnittliche Dauer auf die Konsole aus.
 func RunBenchmark(max, count, iterations int) {
-
-	var avgDurationSorted time.Duration
-	for i := 0; i < iterations; i++ {
-		durationSorted := CreateListSortAndSum(max, count)
-		avgDurationSorted += durationSorted
+	fmt.Println("Benchmark für Branch-Prediction")
+	fmt.Printf("  %v Elemente zwischen 0 und %v, summiert werden Elemente über %v:\n", count, max, max/2)
+	{
+		var avgDuration time.Duration
+		for i := 0; i < iterations; i++ {
+			duration := CreateListSortAndSum(max, count)
+			avgDuration += duration
+		}
+		avgDuration /= time.Duration(iterations)
+		fmt.Printf("  Durchschnittliche Dauer bei sortierter Liste: %v\n", avgDuration)
 	}
-	avgDurationSorted /= time.Duration(iterations)
 
-	var avgDurationShuffled time.Duration
-	for i := 0; i < iterations; i++ {
-		durationShuffled := CreateListAndSum(max, count)
-		avgDurationShuffled += durationShuffled
+	{
+		var avgDuration time.Duration
+		for i := 0; i < iterations; i++ {
+			duration := CreateListAndSum(max, count)
+			avgDuration += duration
+		}
+		avgDuration /= time.Duration(iterations)
+		fmt.Printf("  Durchschnittliche Dauer bei unsortierter Liste: %v\n\n", avgDuration)
 	}
-	avgDurationShuffled /= time.Duration(iterations)
-
-	fmt.Printf("%v Elemente zwischen 0 und %v, summiert werden Elemente über %v:\n", count, max, max/2)
-	fmt.Printf("  Durchschnittliche Dauer bei sortierter Liste: %v\n", avgDurationSorted)
-	fmt.Printf("  Durchschnittliche Dauer bei unsortierter Liste: %v\n\n", avgDurationShuffled)
-
 }
