@@ -24,10 +24,10 @@ func SumGreater(list []int, x int) int {
 // Erzeugt eine Zufallsliste der Länge length mit Werten zwischen 0 und max.
 // Summiert dann die Elemente auf, die größer als threshold sind.
 // Liefert diese Summe und die Zeit, die das Aufsummieren gedauert hat.
-func CreateListAndSum(max, length, threshold int) (int, time.Duration) {
+func CreateListAndSum(max, length int) (int, time.Duration) {
 	list := randomlist.Ints(length, max)
 	var sum int
-	duration := timing.Duration(func() { sum = SumGreater(list, threshold) })
+	duration := timing.Duration(func() { sum = SumGreater(list, max/2) })
 	return sum, duration
 }
 
@@ -35,11 +35,11 @@ func CreateListAndSum(max, length, threshold int) (int, time.Duration) {
 // Summiert dann die Elemente auf, die größer als threshold sind.
 // Liefert diese Summe und die Zeit, die das Aufsummieren gedauert hat.
 // Sortiert die Liste vor dem Aufsummieren.
-func CreateListSortAndSum(max, length, threshold int) (int, time.Duration) {
+func CreateListSortAndSum(max, length int) (int, time.Duration) {
 	list := randomlist.Ints(length, max)
 	sort.Ints(list)
 	var sum int
-	duration := timing.Duration(func() { sum = SumGreater(list, threshold) })
+	duration := timing.Duration(func() { sum = SumGreater(list, max/2) })
 	return sum, duration
 }
 
@@ -50,8 +50,8 @@ func CreateListSortAndSum(max, length, threshold int) (int, time.Duration) {
 // Gibt die Summe sowie die Dauer auf die Konsole aus.
 func RunBenchmark(max, count int) {
 
-	_, durationSorted := CreateListSortAndSum(max, count, count/2)
-	_, durationShuffled := CreateListAndSum(max, count, count/2)
+	_, durationSorted := CreateListSortAndSum(max, count)
+	_, durationShuffled := CreateListAndSum(max, count)
 
 	fmt.Printf("%v Elemente zwischen 0 und %v, summiert werden Elemente über %v:\n", count, max, count/2)
 
