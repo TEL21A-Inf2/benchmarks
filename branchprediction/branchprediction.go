@@ -44,13 +44,16 @@ func CreateListSortAndSum(max, length, threshold int) (int, time.Duration) {
 }
 
 // Führt den eigentlichen Benchmark aus.
+// Erwartet Anzahl und Höchstgrenze für die Elemente der Liste.
+// Summiert alles, was größer ist als count / 2.
 // Ausgeführt wird jeweils einmal CreateListAndSum() und CreateListSortAndSum().
 // Gibt die Summe sowie die Dauer auf die Konsole aus.
-func RunBenchmark(max, count, threshold int) {
-	_, durationSorted := CreateListSortAndSum(max, count, threshold)
-	_, durationShuffled := CreateListAndSum(max, count, threshold)
+func RunBenchmark(max, count int) {
 
-	fmt.Printf("%v Elemente zwischen 0 und %v, summiert werden Elemente über %v:\n", count, max, threshold)
+	_, durationSorted := CreateListSortAndSum(max, count, count/2)
+	_, durationShuffled := CreateListAndSum(max, count, count/2)
+
+	fmt.Printf("%v Elemente zwischen 0 und %v, summiert werden Elemente über %v:\n", count, max, count/2)
 
 	fmt.Printf("  Dauer bei sortierter Liste: %v\n", durationSorted)
 	fmt.Printf("  Dauer bei unsortierter Liste: %v\n\n", durationShuffled)
