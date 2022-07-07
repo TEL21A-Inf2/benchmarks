@@ -29,3 +29,25 @@ func GreatestSublist(list []int, length int) []int {
 	}
 	return list[resultPos : resultPos+length]
 }
+
+func GreatestSublistOptimized(list []int, length int) []int {
+	if length > len(list) {
+		return make([]int, 0)
+	}
+
+	resultPos := 0
+	greatestSum := 0
+	for _, v := range list[0:length] {
+		greatestSum += v
+	}
+	currentSum := greatestSum
+
+	for i := length; i < len(list); i++ {
+		currentSum = currentSum - list[i-length] + list[i]
+		if currentSum > greatestSum {
+			greatestSum = currentSum
+			resultPos = i - length + 1
+		}
+	}
+	return list[resultPos : resultPos+length]
+}
