@@ -1,5 +1,12 @@
 # Zeitmessungen für verschiedene Algorithmen
 
+## Sortierverfahren
+
+Im Package `sorting` sind die Sortierverfahren aus der Vorlesung implementiert und
+es gibt einen Benchmark dafür.
+Diese Funktion führt alle Sortierverfahren auf einer zufällig generierten Liste aus,
+misst die durchschnittliche Zeit und gibt sie auf der Konsole aus.
+
 ## Branch Prediction
 
 Im Package `branchprediction` gibt es eine Funktion `sumGreater()`, die aus einer Liste
