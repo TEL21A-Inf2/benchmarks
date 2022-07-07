@@ -19,11 +19,31 @@ func DurationSortInts(length, max int) time.Duration {
 }
 
 // Erzeugt eine Zufallsliste mit length Elementen im Intervall [0,max].
-// Sortiert diese Liste mit IsertionSort() und liefert die Zeit zurück.
+// Sortiert diese Liste mit InsertionSort() und liefert die Zeit zurück.
 func DurationInsertionSort(length, max int) time.Duration {
 	list := randomlist.Ints(length, max)
 	startTime := time.Now()
 	InsertionSort(list)
+	endTime := time.Now()
+	return endTime.Sub(startTime)
+}
+
+// Erzeugt eine Zufallsliste mit length Elementen im Intervall [0,max].
+// Sortiert diese Liste mit SelectionSort() und liefert die Zeit zurück.
+func DurationSelectionSort(length, max int) time.Duration {
+	list := randomlist.Ints(length, max)
+	startTime := time.Now()
+	SelectionSort(list)
+	endTime := time.Now()
+	return endTime.Sub(startTime)
+}
+
+// Erzeugt eine Zufallsliste mit length Elementen im Intervall [0,max].
+// Sortiert diese Liste mit BubbleSort() und liefert die Zeit zurück.
+func DurationBubbleSort(length, max int) time.Duration {
+	list := randomlist.Ints(length, max)
+	startTime := time.Now()
+	BubbleSort(list)
 	endTime := time.Now()
 	return endTime.Sub(startTime)
 }
@@ -52,5 +72,23 @@ func RunBenchmark(max, count, iterations int) {
 		}
 		avgDuration /= time.Duration(iterations)
 		fmt.Printf("  Durchschnittliche Dauer von InsertionSort %v\n", avgDuration)
+	}
+	{
+		var avgDuration time.Duration
+		for i := 0; i < iterations; i++ {
+			duration := DurationSelectionSort(max, count)
+			avgDuration += duration
+		}
+		avgDuration /= time.Duration(iterations)
+		fmt.Printf("  Durchschnittliche Dauer von SelectionSort %v\n", avgDuration)
+	}
+	{
+		var avgDuration time.Duration
+		for i := 0; i < iterations; i++ {
+			duration := DurationBubbleSort(max, count)
+			avgDuration += duration
+		}
+		avgDuration /= time.Duration(iterations)
+		fmt.Printf("  Durchschnittliche Dauer von BubbleSort %v\n", avgDuration)
 	}
 }
