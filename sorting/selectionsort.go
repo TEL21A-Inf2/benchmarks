@@ -1,6 +1,6 @@
 package sorting
 
-// Implementierung von InsertionSort.
+// Implementierung von Selectionsort.
 func SelectionSort(list []int) {
 	for i := range list {
 		minPos := i
