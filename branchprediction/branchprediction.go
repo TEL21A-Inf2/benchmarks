@@ -53,12 +53,14 @@ func RunBenchmark(max, count, iterations int) {
 		durationSorted := CreateListSortAndSum(max, count)
 		avgDurationSorted += durationSorted
 	}
+	avgDurationSorted /= time.Duration(iterations)
 
 	var avgDurationShuffled time.Duration
 	for i := 0; i < iterations; i++ {
 		durationShuffled := CreateListAndSum(max, count)
 		avgDurationShuffled += durationShuffled
 	}
+	avgDurationShuffled /= time.Duration(iterations)
 
 	fmt.Printf("%v Elemente zwischen 0 und %v, summiert werden Elemente über %v:\n", count, max, count/2)
 	fmt.Printf("  Durchschnittliche Dauer bei sortierter Liste: %v\n", avgDurationSorted)
