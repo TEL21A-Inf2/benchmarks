@@ -7,11 +7,13 @@ import (
 )
 
 const (
+	maxElement = 200
+	listLength = 30000
 	iterations = 100
 )
 
 func main() {
-	branchprediction.RunBenchmark(200, 30000, iterations)
-	sorting.RunBenchmark(200, 30000, iterations)
-	lists.RunBenchmark(200, 30000, 5, iterations)
+	branchprediction.RunBenchmark(maxElement, listLength, iterations)
+	sorting.RunBenchmark(maxElement, listLength, iterations)
+	lists.RunBenchmark(maxElement, listLength, 5, iterations)
 }
