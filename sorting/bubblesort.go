@@ -1,6 +1,6 @@
 package sorting
 
-// Implementierung von InsertionSort.
+// Implementierung von BubbleSort.
 func BubbleSort(list []int) {
 	for i := range list {
 		for j, v := range list[:len(list)-i-1] {
