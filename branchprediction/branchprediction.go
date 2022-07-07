@@ -2,9 +2,10 @@ package branchprediction
 
 import (
 	"fmt"
-	"math/rand"
+	"sort"
 	"time"
 
+	"github.com/tel21a-inf2/benchmarks/randomlist"
 	"github.com/tel21a-inf2/benchmarks/timing"
 )
 
@@ -20,54 +21,38 @@ func SumGreater(list []int, x int) int {
 	return result
 }
 
-// Erzeugt eine Liste der Länge n, die die ersten n Vielfachen von x enthält.
-func Multiples(x, n int) []int {
-	result := make([]int, n)
-	currentValue := x
-	for i := 0; i < n; i++ {
-		result[i] = currentValue
-		currentValue += x
-	}
-	return result
-}
-
-// Erzeugt eine Liste mit Multiples(x,n) und summiert
-// dann die Elemente auf, die größer als t sind.
+// Erzeugt eine Zufallsliste der Länge length mit Werten zwischen 0 und max.
+// Summiert dann die Elemente auf, die größer als threshold sind.
 // Liefert diese Summe und die Zeit, die das Aufsummieren gedauert hat.
-func CreateListAndSum(x, n, t int) (int, time.Duration) {
-	list := Multiples(x, n)
+func CreateListAndSum(max, length, threshold int) (int, time.Duration) {
+	list := randomlist.Ints(length, max)
 	var sum int
-	duration := timing.Duration(func() { sum = SumGreater(list, t) })
+	duration := timing.Duration(func() { sum = SumGreater(list, threshold) })
 	return sum, duration
 }
 
-// Erzeugt eine Liste mit Multiples(x,n) und summiert
-// dann die Elemente auf, die größer als t sind.
+// Erzeugt eine Zufallsliste der Länge length mit Werten zwischen 0 und max.
+// Summiert dann die Elemente auf, die größer als threshold sind.
 // Liefert diese Summe und die Zeit, die das Aufsummieren gedauert hat.
-func CreateListShuffleAndSum(x, n, t int) (int, time.Duration) {
-	list := Multiples(x, n)
-	rand.Shuffle(len(list), func(i, j int) { list[i], list[j] = list[j], list[i] })
+// Sortiert die Liste vor dem Aufsummieren.
+func CreateListSortAndSum(max, length, threshold int) (int, time.Duration) {
+	list := randomlist.Ints(length, max)
+	sort.Ints(list)
 	var sum int
-	duration := timing.Duration(func() { sum = SumGreater(list, t) })
+	duration := timing.Duration(func() { sum = SumGreater(list, threshold) })
 	return sum, duration
 }
 
-// Führt den eigentlichen Benchmark aus:
-//
-// Erzeugt eine Liste von count Vielfachen von base,
-// summiert dann deren Elemente über threshold.
-// Ausgeführt wird jeweils einmal CreateListAndSum() und CreateListShuffleAndSum().
+// Führt den eigentlichen Benchmark aus.
+// Ausgeführt wird jeweils einmal CreateListAndSum() und CreateListSortAndSum().
 // Gibt die Summe sowie die Dauer auf die Konsole aus.
-func RunBenchmark(base, count, threshold int) {
-	sumSorted, durationSorted := CreateListAndSum(base, count, threshold)
-	sumShuffled, durationShuffled := CreateListShuffleAndSum(base, count, threshold)
+func RunBenchmark(max, count, threshold int) {
+	_, durationSorted := CreateListSortAndSum(max, count, threshold)
+	_, durationShuffled := CreateListAndSum(max, count, threshold)
 
-	fmt.Printf("%v Vielfache von %v, summiere die Elemente > %v:\n", count, base, threshold)
+	fmt.Printf("%v Elemente zwischen 0 und %v, summiert werden Elemente über %v:\n", count, max, threshold)
 
-	fmt.Println("  Sortierte Liste:")
-	fmt.Printf("    Ergebnis: %v, Dauer: %v\n\n", sumSorted, durationSorted)
-
-	fmt.Println("  Unsortierte Liste:")
-	fmt.Printf("    Ergebnis: %v, Dauer: %v\n\n", sumShuffled, durationShuffled)
+	fmt.Printf("  Dauer bei sortierter Liste: %v\n", durationSorted)
+	fmt.Printf("  Dauer bei unsortierter Liste: %v\n\n", durationShuffled)
 
 }
