@@ -7,9 +7,5 @@ const (
 )
 
 func main() {
-	branchprediction.RunBenchmark(100, 100, iterations)
-	branchprediction.RunBenchmark(100, 1000, iterations)
-	branchprediction.RunBenchmark(100, 10000, iterations)
-	branchprediction.RunBenchmark(100, 100000, iterations)
 	branchprediction.RunBenchmark(100, 10000000, iterations)
 }

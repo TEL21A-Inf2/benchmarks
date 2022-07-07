@@ -9,12 +9,12 @@ import (
 	"github.com/tel21a-inf2/benchmarks/timing"
 )
 
-// Erwartet eine Liste von Zahlen und eine Zahl t.
-// Liefert die Summe aller Elemente der Liste, die größer als t sind.
-func SumGreater(list []int, x int) int {
+// Erwartet eine Liste von Zahlen und eine Zahl max.
+// Liefert die Summe aller Elemente der Liste, die größer als max sind.
+func SumGreater(list []int, max int) int {
 	result := 0
 	for _, el := range list {
-		if el > x {
+		if el > max {
 			result += el
 		}
 	}
@@ -62,7 +62,7 @@ func RunBenchmark(max, count, iterations int) {
 	}
 	avgDurationShuffled /= time.Duration(iterations)
 
-	fmt.Printf("%v Elemente zwischen 0 und %v, summiert werden Elemente über %v:\n", count, max, count/2)
+	fmt.Printf("%v Elemente zwischen 0 und %v, summiert werden Elemente über %v:\n", count, max, max/2)
 	fmt.Printf("  Durchschnittliche Dauer bei sortierter Liste: %v\n", avgDurationSorted)
 	fmt.Printf("  Durchschnittliche Dauer bei unsortierter Liste: %v\n\n", avgDurationShuffled)
 
