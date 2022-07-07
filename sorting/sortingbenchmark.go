@@ -148,4 +148,5 @@ func RunBenchmark(max, count, iterations int) {
 		avgDuration /= time.Duration(iterations)
 		fmt.Printf("  Durchschnittliche Dauer von HeapSort %v\n", avgDuration)
 	}
+	fmt.Println()
 }

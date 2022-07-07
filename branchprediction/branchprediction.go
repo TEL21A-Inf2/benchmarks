@@ -69,6 +69,7 @@ func RunBenchmark(max, count, iterations int) {
 			avgDuration += duration
 		}
 		avgDuration /= time.Duration(iterations)
-		fmt.Printf("  Durchschnittliche Dauer bei unsortierter Liste: %v\n\n", avgDuration)
+		fmt.Printf("  Durchschnittliche Dauer bei unsortierter Liste: %v\n", avgDuration)
 	}
+	fmt.Println()
 }
