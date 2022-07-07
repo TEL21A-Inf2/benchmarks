@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/tel21a-inf2/benchmarks/randomlist"
-	"github.com/tel21a-inf2/benchmarks/timing"
 )
 
 // Erwartet eine Liste von Zahlen und eine Zahl max.
@@ -26,8 +25,10 @@ func SumGreater(list []int, max int) int {
 // Liefert die Zeit, die das Aufsummieren gedauert hat.
 func CreateListAndSum(max, length int) time.Duration {
 	list := randomlist.Ints(length, max)
-	duration := timing.Duration(func() { SumGreater(list, max/2) })
-	return duration
+	startTime := time.Now()
+	SumGreater(list, max/2)
+	endTime := time.Now()
+	return endTime.Sub(startTime)
 }
 
 // Erzeugt eine Zufallsliste der Länge length mit Werten zwischen 0 und max.
@@ -37,8 +38,10 @@ func CreateListAndSum(max, length int) time.Duration {
 func CreateListSortAndSum(max, length int) time.Duration {
 	list := randomlist.Ints(length, max)
 	sort.Ints(list)
-	duration := timing.Duration(func() { SumGreater(list, max/2) })
-	return duration
+	startTime := time.Now()
+	SumGreater(list, max/2)
+	endTime := time.Now()
+	return endTime.Sub(startTime)
 }
 
 // Führt den eigentlichen Benchmark aus.
