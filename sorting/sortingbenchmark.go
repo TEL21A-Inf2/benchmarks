@@ -58,6 +58,16 @@ func DurationMergeSort(length, max int) time.Duration {
 	return endTime.Sub(startTime)
 }
 
+// Erzeugt eine Zufallsliste mit length Elementen im Intervall [0,max].
+// Sortiert diese Liste mit QuickSort() und liefert die Zeit zurück.
+func DurationQuickSort(length, max int) time.Duration {
+	list := randomlist.Ints(length, max)
+	startTime := time.Now()
+	QuickSort(list)
+	endTime := time.Now()
+	return endTime.Sub(startTime)
+}
+
 // Führt den Sortier-Benchmark aus.
 // Erwartet Anzahl und Höchstgrenze für die Elemente der Liste, sowie die Anzahl der Wiederholungen.
 // Es wird jede der obigen Sortierfunktionen entsprechend der Wiederholungen ausgeführt
@@ -109,5 +119,14 @@ func RunBenchmark(max, count, iterations int) {
 		}
 		avgDuration /= time.Duration(iterations)
 		fmt.Printf("  Durchschnittliche Dauer von MergeSort %v\n", avgDuration)
+	}
+	{
+		var avgDuration time.Duration
+		for i := 0; i < iterations; i++ {
+			duration := DurationQuickSort(max, count)
+			avgDuration += duration
+		}
+		avgDuration /= time.Duration(iterations)
+		fmt.Printf("  Durchschnittliche Dauer von QuickSort %v\n", avgDuration)
 	}
 }
