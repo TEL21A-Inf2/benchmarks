@@ -23,24 +23,22 @@ func SumGreater(list []int, x int) int {
 
 // Erzeugt eine Zufallsliste der Länge length mit Werten zwischen 0 und max.
 // Summiert dann die Elemente auf, die größer als threshold sind.
-// Liefert diese Summe und die Zeit, die das Aufsummieren gedauert hat.
-func CreateListAndSum(max, length int) (int, time.Duration) {
+// Liefert die Zeit, die das Aufsummieren gedauert hat.
+func CreateListAndSum(max, length int) time.Duration {
 	list := randomlist.Ints(length, max)
-	var sum int
-	duration := timing.Duration(func() { sum = SumGreater(list, max/2) })
-	return sum, duration
+	duration := timing.Duration(func() { SumGreater(list, max/2) })
+	return duration
 }
 
 // Erzeugt eine Zufallsliste der Länge length mit Werten zwischen 0 und max.
 // Summiert dann die Elemente auf, die größer als threshold sind.
-// Liefert diese Summe und die Zeit, die das Aufsummieren gedauert hat.
+// Liefert die Zeit, die das Aufsummieren gedauert hat.
 // Sortiert die Liste vor dem Aufsummieren.
-func CreateListSortAndSum(max, length int) (int, time.Duration) {
+func CreateListSortAndSum(max, length int) time.Duration {
 	list := randomlist.Ints(length, max)
 	sort.Ints(list)
-	var sum int
-	duration := timing.Duration(func() { sum = SumGreater(list, max/2) })
-	return sum, duration
+	duration := timing.Duration(func() { SumGreater(list, max/2) })
+	return duration
 }
 
 // Führt den eigentlichen Benchmark aus.
@@ -52,13 +50,13 @@ func RunBenchmark(max, count, iterations int) {
 
 	var avgDurationSorted time.Duration
 	for i := 0; i < iterations; i++ {
-		_, durationSorted := CreateListSortAndSum(max, count)
+		durationSorted := CreateListSortAndSum(max, count)
 		avgDurationSorted += durationSorted
 	}
 
 	var avgDurationShuffled time.Duration
 	for i := 0; i < iterations; i++ {
-		_, durationShuffled := CreateListAndSum(max, count)
+		durationShuffled := CreateListAndSum(max, count)
 		avgDurationShuffled += durationShuffled
 	}
 
